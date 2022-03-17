@@ -14,18 +14,6 @@ public class Student {
   private String fullName;
   private Integer age;
 
-
-  // JOIN with StudentID Card
-
-  // delete Student will also delete Student ID
-  // Virtually mapped with studentIDCard ID
-//  @OneToOne(
-//      mappedBy = "student",
-//      orphanRemoval = true
-//  )
-//  private StudentIdCard studentIdCard;
-
-
   @OneToOne(mappedBy = "student", orphanRemoval = true, cascade = CascadeType.PERSIST)
   @PrimaryKeyJoinColumn
   private StudentIdCard studentIdCard;
