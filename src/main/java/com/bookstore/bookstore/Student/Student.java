@@ -35,7 +35,7 @@ public class Student {
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
       fetch = FetchType.LAZY
   )
-  private List<Book> books = new ArrayList<>();
+  private final List<Book> books = new ArrayList<>();
 
 
   // Constructors
