@@ -72,14 +72,14 @@ public class BookstoreApplication {
             });
           });
 
-//      studentRepository.findById(1L).ifPresentOrElse(
-//          System.out::println,
-//          () -> System.out.println("Student not found"));
+      studentRepository.findById(1L).ifPresentOrElse(
+          System.out::println,
+          () -> System.out.println("Student not found"));
 
 
-       //Find Student ID card
-//      studentIdCardRepository.findById(1L)
-//          .ifPresent(System.out::println);
+       // Find Student ID card
+      studentIdCardRepository.findById(5L)
+          .ifPresent(System.out::println);
 
            // List all student by age group
 //      studentRepository.findStudentByAgeGroup(50).forEach(System.out::println);
