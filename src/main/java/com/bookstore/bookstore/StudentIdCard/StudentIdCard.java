@@ -51,7 +51,7 @@ public class StudentIdCard {
     return "StudentIdCard{" +
         "id=" + id +
         ", cardNumber='" + cardNumber + '\'' +
-        ", student=" + student +
+//        ", student=" + student +
         '}';
   }
 }
