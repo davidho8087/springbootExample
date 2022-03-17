@@ -41,7 +41,7 @@ public class BookstoreApplication {
 
 
       // Find Student by id
-      studentRepository.findById(2L).ifPresentOrElse(
+      studentRepository.findById(1L).ifPresentOrElse(
           System.out::println,
           () -> System.out.println("Student not found"));
 
@@ -58,8 +58,9 @@ public class BookstoreApplication {
       // List all student by age group
       studentRepository.findStudentByAgeGroup(50).forEach(System.out::println);
 
-//      System.out.println("Deleting Maria 1");
-//      System.out.println(studentRepository.deleteStudentById(3L));
+//       System.out.println("Deleting Maria 1");
+      studentRepository.deleteById(1L);
+      //System.out.println(studentRepository.deleteStudentById(1L));
 
     };
   }

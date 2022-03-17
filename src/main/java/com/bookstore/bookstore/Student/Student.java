@@ -2,10 +2,7 @@ package com.bookstore.bookstore.Student;
 
 import com.bookstore.bookstore.StudentIdCard.StudentIdCard;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity(name = "Student")
 public class Student {
@@ -22,10 +19,15 @@ public class Student {
 
   // delete Student will also delete Student ID
   // Virtually mapped with studentIDCard ID
-  @OneToOne(
-      mappedBy = "student",
-      orphanRemoval = true
-  )
+//  @OneToOne(
+//      mappedBy = "student",
+//      orphanRemoval = true
+//  )
+//  private StudentIdCard studentIdCard;
+
+
+  @OneToOne(mappedBy = "student", orphanRemoval = true, cascade = CascadeType.PERSIST)
+  @PrimaryKeyJoinColumn
   private StudentIdCard studentIdCard;
 
 
@@ -63,13 +65,23 @@ public class Student {
     this.age = age;
   }
 
+  public StudentIdCard getStudentIdCard() {
+    return studentIdCard;
+  }
+
+  public void setStudentIdCard(StudentIdCard studentIdCard) {
+    this.studentIdCard = studentIdCard;
+  }
+
   // String
+
   @Override
   public String toString() {
     return "Student{" +
         "id=" + id +
         ", fullName='" + fullName + '\'' +
         ", age=" + age +
+        ", studentIdCard=" + studentIdCard +
         '}';
   }
 }
