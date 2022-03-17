@@ -9,29 +9,26 @@ import javax.persistence.*;
 public class StudentIdCard {
 
   @Id
-  @Column(name = "student_id")
+  @GeneratedValue
   private Long id;
-
   private String cardNumber;
 
-
-  // Student ID Live here
-
-  // Cascade here = both save and update include student
-  // Live Student ID here
-//  @OneToOne(cascade = CascadeType.ALL)
-//  @JoinColumn(name = "student_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "student_id_fk"))
-//  private Student student;
-
-
-  @OneToOne
-  @MapsId
-  @JoinColumn(name = "student_id")
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(
+      name = "student_id",
+      referencedColumnName = "id",
+      foreignKey = @ForeignKey(
+          name = "student_id_fk"
+      )
+  )
   private Student student;
-
 
   // Constructor regenerate if any changes
   public StudentIdCard() {
+  }
+
+  public StudentIdCard(String cardNumber) {
+    this.cardNumber = cardNumber;
   }
 
   public StudentIdCard(String cardNumber, Student student) {
@@ -44,35 +41,17 @@ public class StudentIdCard {
   public Long getId() {
     return id;
   }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
   public String getCardNumber() {
     return cardNumber;
   }
 
-  public void setCardNumber(String cardNumber) {
-    this.cardNumber = cardNumber;
-  }
-
-  public Student getStudent() {
-    return student;
-  }
-
-  public void setStudent(Student student) {
-    this.student = student;
-  }
-
   // STRING
-
-
   @Override
   public String toString() {
     return "StudentIdCard{" +
         "id=" + id +
         ", cardNumber='" + cardNumber + '\'' +
+        ", student=" + student +
         '}';
   }
 }

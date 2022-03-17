@@ -1,8 +1,11 @@
 package com.bookstore.bookstore.Student;
 
+import com.bookstore.bookstore.Book.Book;
 import com.bookstore.bookstore.StudentIdCard.StudentIdCard;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Student")
 public class Student {
@@ -14,9 +17,25 @@ public class Student {
   private String fullName;
   private Integer age;
 
-  @OneToOne(mappedBy = "student", orphanRemoval = true, cascade = CascadeType.PERSIST)
-  @PrimaryKeyJoinColumn
+
+  // ONE TO ONE WITH STUDENT CARD
+  @OneToOne(
+      mappedBy = "student",
+      orphanRemoval = true,
+      cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+
+  )
   private StudentIdCard studentIdCard;
+
+
+  // ONE TO MANY WITH BOOK
+  @OneToMany(
+      mappedBy = "student",
+      orphanRemoval = true,
+      cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+      fetch = FetchType.LAZY
+  )
+  private List<Book> books = new ArrayList<>();
 
 
   // Constructors
@@ -53,12 +72,33 @@ public class Student {
     this.age = age;
   }
 
-  public StudentIdCard getStudentIdCard() {
-    return studentIdCard;
-  }
 
   public void setStudentIdCard(StudentIdCard studentIdCard) {
     this.studentIdCard = studentIdCard;
+  }
+
+  public void setBooks(List<Book> books) {
+    this.books = books;
+  }
+
+  public List<Book> getBooks() {
+    return books;
+  }
+
+
+  // Custom
+  public void addBook(Book book) {
+    if (!this.books.contains(book)) {
+      this.books.add(book);
+      book.setStudent(this);
+    }
+  }
+
+  public void removeBook(Book book) {
+    if (this.books.contains(book)) {
+      this.books.remove(book);
+      book.setStudent(null);
+    }
   }
 
   // String
@@ -68,7 +108,6 @@ public class Student {
         "id=" + id +
         ", fullName='" + fullName + '\'' +
         ", age=" + age +
-        ", studentIdCard=" + studentIdCard +
         '}';
   }
 }
